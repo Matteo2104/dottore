@@ -13,7 +13,7 @@ public interface DottoreService {
 
 	public Dottore aggiorna(Dottore dottore);
 
-	public Dottore caricaSingoloElementoEager(Long id);
+	//public Dottore caricaSingoloElementoEager(Long id);
 
 	//public void rimuovi(Dottore dottore);
 

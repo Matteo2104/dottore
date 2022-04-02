@@ -24,13 +24,13 @@ public class DottoreServiceImpl implements DottoreService {
 	public Dottore caricaSingoloElemento(Long id) {
 		return repository.findById(id).orElse(null);
 	}
-	
+	/*
 	@Override
 	@Transactional
 	public Dottore caricaSingoloElementoEager(Long id) {
 		return repository.findByIdEager(id).orElse(null);
 	}
-	
+	*/
 	@Override
 	@Transactional
 	public Dottore inserisciNuovo(Dottore dottore) {
