@@ -24,6 +24,13 @@ public class DottoreServiceImpl implements DottoreService {
 	public Dottore caricaSingoloElemento(Long id) {
 		return repository.findById(id).orElse(null);
 	}
+	
+	@Override
+	@Transactional
+	public void rimuovi(Dottore dottore) {
+		repository.delete(dottore);
+	}
+	
 	/*
 	@Override
 	@Transactional
@@ -44,11 +51,7 @@ public class DottoreServiceImpl implements DottoreService {
 	}
 	
 	/*
-	@Override
-	@Transactional
-	public void rimuovi(Dottore dottore) {
-		repository.delete(dottore);
-	}
+	
 	
 	@Override
 	@Transactional(readOnly = true)
