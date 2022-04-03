@@ -26,13 +26,21 @@ public class Dottore {
 	@Column(name = "codiceDipendente")
 	private String codiceDipendente;
 	
+	@Column(name = "inServizio")
+	private boolean inServizio;
+	
+	@Column(name = "inVisita")
+	private boolean inVisita;
+	
 	
 	public Dottore() {}
-	public Dottore(Long id, String nome, String cognome, String codiceDipendente) {
+	public Dottore(Long id, String nome, String cognome, String codiceDipendente, boolean inServizio, boolean inVisita) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceDipendente = codiceDipendente;
+		this.inServizio = inServizio;
+		this.inVisita = inVisita;
 	}
 	
 
@@ -67,15 +75,29 @@ public class Dottore {
 	public void setCodiceDipendente(String codiceDipendente) {
 		this.codiceDipendente = codiceDipendente;
 	}
-
+	public boolean isInServizio() {
+		return inServizio;
+	}
+	public boolean isInVisita() {
+		return inVisita;
+	}
+	public void setInServizio(boolean inServizio) {
+		this.inServizio = inServizio;
+	}
+	public void setInVisita(boolean inVisita) {
+		this.inVisita = inVisita;
+	}
 	
-
+	
 	
 	@Override
 	public String toString() {
 		return "Dottore [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", codiceDipendente="
-				+ codiceDipendente + "]";
+				+ codiceDipendente + ", inServizio=" + inServizio + ", inVisita=" + inVisita + "]";
 	}
+	
+	
+	
 	
 	
 }

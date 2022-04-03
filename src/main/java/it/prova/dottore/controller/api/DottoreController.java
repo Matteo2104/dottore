@@ -27,7 +27,17 @@ public class DottoreController {
 	
 	@GetMapping
 	public List<DottoreDTO> getAll() {
-		return DottoreDTO.buildDottoreDTOListFromModelList(dottoreService.listAllElements(), false); 
+		return DottoreDTO.buildDottoreDTOListFromModelList(dottoreService.listAllElements()); 
+	}
+	
+	@GetMapping("/{id}")
+	public DottoreDTO findById(@PathVariable(value = "id", required = true) long id) {
+		Dottore dottore = dottoreService.caricaSingoloElemento(id); 
+
+		if (dottore == null)
+			throw new RuntimeException("Dottore not found con id: " + id);
+
+		return DottoreDTO.buildDottoreDTOFromModel(dottore);
 	}
 	
 	
@@ -39,12 +49,13 @@ public class DottoreController {
 
 		Dottore newEntry = dottoreInput.buildDottoreModel();
 		
+		
 		/*
 		// andrebbe in un service!!!
 		newEntry.setCodicePrevidenziale("REGPREV-" + newEntry.getCodiceFiscale());
 		*/
 
-		DottoreDTO result = DottoreDTO.buildDottoreDTOFromModel(dottoreService.inserisciNuovo(newEntry), false);
+		DottoreDTO result = DottoreDTO.buildDottoreDTOFromModel(dottoreService.inserisciNuovo(newEntry));
 		return result;
 	}
 	
@@ -58,26 +69,25 @@ public class DottoreController {
 			throw new DottoreNotFoundException("Dottore not found con id: " + id);
 		*/
 		
-		
-	
 		dottoreService.rimuovi(dottore);
 	}
 	
-	/*
-	@GetMapping
-	public List<DottoreDTO> getAll() {
-		return DottoreDTO.buildDottoreDTOListFromModelList(dottoreService.listAllElements(), false); 
+	@GetMapping("/assegna/{codiceDipendente}")
+	public DottoreDTO findByCodDip(@PathVariable(required=true) String codiceDipendente) {
+		Dottore dottore = dottoreService.trovaPerCodiceDipendente(codiceDipendente);
+		
+		if (dottore == null)
+			throw new RuntimeException("non è stato trovato alcun dottore");
+		
+		System.out.println(DottoreDTO.buildDottoreDTOFromModel(dottore));
+		
+		return DottoreDTO.buildDottoreDTOFromModel(dottore);
 	}
 	
-	@GetMapping("/{id}")
-	public DottoreDTO findById(@PathVariable(value = "id", required = true) long id) {
-		Dottore dottore = dottoreService.caricaSingoloElemento(id); // con paziente?
-
-		if (dottore == null)
-			throw new DottoreNotFoundException("Dottore not found con id: " + id);
-
-		return DottoreDTO.buildDottoreDTOFromModel(dottore, false); // true?
-	}
+	/*
+	
+	
+	
 	
 	
 	

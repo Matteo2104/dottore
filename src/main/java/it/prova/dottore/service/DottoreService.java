@@ -15,6 +15,8 @@ public interface DottoreService {
 
 	public void rimuovi(Dottore dottore);
 
+	public Dottore trovaPerCodiceDipendente(String codiceDipendente);
+
 	//public Dottore caricaSingoloElementoEager(Long id);
 
 	//public void rimuovi(Dottore dottore);

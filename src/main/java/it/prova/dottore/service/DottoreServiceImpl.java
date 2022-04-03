@@ -31,6 +31,12 @@ public class DottoreServiceImpl implements DottoreService {
 		repository.delete(dottore);
 	}
 	
+	@Override
+	@Transactional
+	public Dottore trovaPerCodiceDipendente(String codiceDipendente) {
+		return repository.findByCodDip(codiceDipendente).orElse(null);
+	}
+	
 	/*
 	@Override
 	@Transactional

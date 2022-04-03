@@ -21,12 +21,23 @@ public class DottoreDTO {
 	
 	private String codiceDipendente;
 	
+	private boolean inServizio;
+	private boolean inVisita;
+	
 	public DottoreDTO() {}
 	public DottoreDTO(Long id, String nome, String cognome, String codiceDipendente) {
 		this.id = id;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.codiceDipendente = codiceDipendente;
+	}
+	public DottoreDTO(Long id, String nome, String cognome, String codiceDipendente, boolean inServizio, boolean inVisita) {
+		this.id = id;
+		this.nome = nome;
+		this.cognome = cognome;
+		this.codiceDipendente = codiceDipendente;
+		this.inServizio = inServizio;
+		this.inVisita = inVisita;
 	}
 	
 	
@@ -55,15 +66,33 @@ public class DottoreDTO {
 	public void setCodiceDipendente(String codiceDipendente) {
 		this.codiceDipendente = codiceDipendente;
 	}
+	public boolean isInServizio() {
+		return inServizio;
+	}
+	public boolean isInVisita() {
+		return inVisita;
+	}
+	public void setInServizio(boolean inServizio) {
+		this.inServizio = inServizio;
+	}
+	public void setInVisita(boolean inVisita) {
+		this.inVisita = inVisita;
+	}
+	
 	
 	
 	public Dottore buildDottoreModel() {
-		return new Dottore(this.id, this.nome, this.cognome, this.codiceDipendente);
+		Dottore dottore = new Dottore(this.id, this.nome, this.cognome, this.codiceDipendente, this.inServizio, this.inVisita);
+		dottore.setInServizio(false);
+		dottore.setInVisita(false );
+		return dottore;
+		
 	}
 
-	public static DottoreDTO buildDottoreDTOFromModel(Dottore dottoreModel, boolean includePaziente) {
-		DottoreDTO result = new DottoreDTO(dottoreModel.getId(), dottoreModel.getNome(), dottoreModel.getCognome(),
-				dottoreModel.getCodiceDipendente());
+	public static DottoreDTO buildDottoreDTOFromModel(Dottore dottoreModel) {
+		DottoreDTO result = new DottoreDTO(
+				dottoreModel.getId(), dottoreModel.getNome(), dottoreModel.getCognome(),
+				dottoreModel.getCodiceDipendente(), dottoreModel.isInServizio(), dottoreModel.isInVisita());
 		
 		/*
 		if (includeTratte)
@@ -72,9 +101,9 @@ public class DottoreDTO {
 		return result;
 	}
 
-	public static List<DottoreDTO> buildDottoreDTOListFromModelList(List<Dottore> modelListInput, boolean includePaziente) {
+	public static List<DottoreDTO> buildDottoreDTOListFromModelList(List<Dottore> modelListInput) {
 		return modelListInput.stream().map(dottoreEntity -> {
-			DottoreDTO result = DottoreDTO.buildDottoreDTOFromModel(dottoreEntity, includePaziente);
+			DottoreDTO result = DottoreDTO.buildDottoreDTOFromModel(dottoreEntity);
 			
 //			if(includeTratte)
 //				result.setTratte(TrattaDTO.createTrattaDTOSetFromModelSet(airbusEntity.getTratte(), false));
